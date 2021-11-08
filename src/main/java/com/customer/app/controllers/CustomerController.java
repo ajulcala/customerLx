@@ -2,6 +2,7 @@ package com.customer.app.controllers;
 
 import com.customer.app.models.documents.Customer;
 import com.customer.app.service.CustomerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Date;
-
+@Slf4j
 @RefreshScope
 @RestController
 @RequestMapping("/customer")
@@ -29,10 +30,16 @@ public class CustomerController {
         return service.findById(id);
     }
 
+    @GetMapping("/documentNumber/{number}")
+    public Mono<Customer> findNumber(@PathVariable String number){
+        return service.findByDocumentNumber(number);
+    }
+
     @PostMapping("/create")
     public Mono<ResponseEntity<Customer>> create(@RequestBody Customer customer){
         return service.findTypeCustomer(customer.getTypeCustomer().getId())
                 .flatMap(typeCustomer -> {
+                            log.info("Enviado a service");
                             customer.setCreateAc(new Date());
                             customer.setTypeCustomer(typeCustomer);
                             return service.create(customer)
@@ -45,6 +52,7 @@ public class CustomerController {
     public Mono<ResponseEntity<Customer>> update(@RequestBody Customer customer) {
         return service.findTypeCustomer(customer.getTypeCustomer().getId())
                 .flatMap(typeCustomer -> {
+                    log.info("updatr customer");
                     return service.update(customer)
                             .map(savedCustomer -> new ResponseEntity<>(savedCustomer, HttpStatus.CREATED));
                 })
@@ -53,6 +61,7 @@ public class CustomerController {
 
     @DeleteMapping("/delete/{id}")
     public Mono<ResponseEntity<String>> delete(@PathVariable String id) {
+        log.info("eliminando customer");
         return service.delete(id)
                 .filter(deleteCustomer -> deleteCustomer)
                 .map(deleteCustomer -> new ResponseEntity<>("Customer Deleted", HttpStatus.ACCEPTED))
