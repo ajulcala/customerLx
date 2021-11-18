@@ -2,6 +2,7 @@ package com.customer.app.controllers;
 
 import com.customer.app.models.documents.Customer;
 import com.customer.app.service.CustomerService;
+import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Date;
 @Slf4j
 @RefreshScope
 @RestController
