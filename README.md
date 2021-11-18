@@ -1,19 +1,8 @@
 # customerLx
-Microservice of customer 
-port: 8011
+SE UTILIZÓ SWAGGER2 PARA DOCUMENTAR EL PROYECTO
 
-Estructura del microservice
-{
-    "documentType": "DNI",
-    "documentNumber": "12345678",
-    "names": "Vivian Torres Torres",
-    "gender": "Feminino",
-    "numberphone": "999999999",
-    "address": "La victoria 235",
-    "dateBirth": "2003-10-01",
-    "typeCustomer": {
-        "id": "618413fbb16d994bb207322c"  ==> poner id del typecustomer que previamente ha sido creado      
-    }
-}
+http://localhost:8011/swagger-ui.html
+- Primero Levantar EUREKA SERVER - https://github.com/ajulcala/eurekaLx
+- Segundo Levantar CONFIG SERVER - https://github.com/ajulcala/configserverLx
 
 "documentType": "DNI","RUC" en mayuscula
